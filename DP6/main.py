@@ -42,8 +42,9 @@ def main():
     # Gekozen Recept
     recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
     for ingredient in recepten[gekozenGerecht].get_ingredienten():
+        alternatief = ingredient.get_plantaardig_alternatief()
         ingredient.set_hoeveelheid(aantalPersonen)
-        print(f"* {ingredient.get_naam()} {ingredient.get_hoeveelheid()}")
+        print(f"* {ingredient.get_ingredient(wiltPlantaardigAlternatief).get_naam()}")
     
     aantalIngredienten = len(recepten[gekozenGerecht].get_ingredienten())
 
