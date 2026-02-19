@@ -1,5 +1,10 @@
 class Ingredient:
-    def __init__(self, naam, hoeveelheid, eenheid, kcal, plantaardig_alternatief=None):
+    def __init__(self,
+                 naam,
+                 hoeveelheid,
+                 eenheid,
+                 kcal,
+                 plantaardig_alternatief=None):
         self.__naam = naam
         self.__hoeveelheid = hoeveelheid
         self.__eenheid = eenheid
@@ -22,8 +27,16 @@ class Ingredient:
     def set_plantaardig_alternatief(self, plantaardig_alternatief):
         self.__plantaardig_alternatief = plantaardig_alternatief
 
-    def get_ingredient(self, wilt_alternatief):
+    def get_plantaardig_alternatief(self):
         return self.__plantaardig_alternatief
+    
+    def get_ingredient(self, wiltAlternatief):
+        returnIngredient = ""
+        if wiltAlternatief == "ja" and self.__plantaardig_alternatief != None:
+            returnIngredient = self.get_plantaardig_alternatief()
+        else:
+            returnIngredient = self
+        return returnIngredient
 
     def __str__(self):
         return f"Geschreven door Stefan Brinkman \n Studentnummer: 1225502 Klas: ICTBC2j over {self.__naam}"
