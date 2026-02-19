@@ -46,7 +46,6 @@ def main():
         print(f"* {ingredient.get_naam()} {ingredient.get_hoeveelheid()}")
     
     aantalIngredienten = len(recepten[gekozenGerecht].get_ingredienten())
-    print("AANTAL INGREDIENTEN: ", aantalIngredienten)
 
     stapCounter = 1
     for stap in recepten[gekozenGerecht].get_stappen():
