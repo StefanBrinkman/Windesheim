@@ -20,7 +20,7 @@ def main():
     recept2.voeg_stap_toe(Stap("Breng het al mengent op temperatuur en voeg zo nodig kruiden toe.", 5))
 
     recept3.voeg_ingredient_toe(Ingredient("Rijst", 300, "gram", 206))
-    recept3.voeg_ingredient_toe(Ingredient("Hamlappen", 400, "gram",  239), Ingredient("Seitan", 400, "gram", 1480))
+    recept3.voeg_ingredient_toe(Ingredient("Hamlappen", 400, "gram",  239, Ingredient("Seitan", 400, "gram", 1480)))
     recept3.voeg_ingredient_toe(Ingredient("Tomatenpuree", 140, "gram", 159))
     recept3.voeg_stap_toe(Stap("Kook de rijst zoals de instructies aangeven"))
     recept3.voeg_stap_toe(Stap("Bak het vlees in een pan voor 30 minuten", 10))
@@ -37,7 +37,7 @@ def main():
 
     gekozenGerecht = int(input("Kies een gerecht: ")) - 1
     aantalPersonen = int(input("Voor hoeveel personen is het recept? "))
-    wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? ")
+    wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
     
     # Gekozen Recept
     recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
