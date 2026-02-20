@@ -41,12 +41,14 @@ def main():
     
     # Gekozen Recept
     recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
+    totaalCal = 0
     for ingredient in recepten[gekozenGerecht].get_ingredienten():
-        alternatief = ingredient.get_plantaardig_alternatief()
         ingredient.set_hoeveelheid(aantalPersonen)
-        print(f"* {ingredient.get_ingredient(wiltPlantaardigAlternatief).get_naam()}")
-    
-    aantalIngredienten = len(recepten[gekozenGerecht].get_ingredienten())
+        gekozenIngredient = ingredient.get_ingredient(wiltPlantaardigAlternatief)
+        totaalCal += gekozenIngredient.get_kcal()
+        print(f"* {gekozenIngredient.get_naam()}")
+
+    print(f"Totaal {totaalCal} calorieën")
 
     stapCounter = 1
     for stap in recepten[gekozenGerecht].get_stappen():
