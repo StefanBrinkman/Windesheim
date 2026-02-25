@@ -35,13 +35,16 @@ def main():
         print(f"Receptnummer {counter}", recpt.get_naam())
         counter += 1
 
-    gekozenGerecht = int(input("Kies een gerecht: ")) - 1
+    while gekozenGerecht := int(input("Kies een gerecht: ")) - 1 > len(recepten):
+        print("Recept niet gevonden")  
+    
     aantalPersonen = int(input("Voor hoeveel personen is het recept? "))
     wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
     
     # Gekozen Recept
     recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
     totaalCal = 0
+
     for ingredient in recepten[gekozenGerecht].get_ingredienten():
         ingredient.set_hoeveelheid(aantalPersonen)
         gekozenIngredient = ingredient.get_ingredient(wiltPlantaardigAlternatief)
