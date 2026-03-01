@@ -6,6 +6,7 @@ recepten = []
 
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
+    keuzeMenuOpties()
 
 def toonReceptenOverzicht():
     print("TOON OVERZICHT RECEPTEN")
@@ -47,6 +48,29 @@ def toonReceptenOverzicht():
         print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
         stapCounter += 1
 
+    keuzeMenuOpties()
+
+
+def keuzeMenuOpties():
+    keuzeNummer = 1
+    keuzeMenu = ["Recept toevoegen", "Overzicht tonen", "Exit"]
+    for keuze in keuzeMenu:
+        print(keuzeNummer, keuze)
+        keuzeNummer += 1
+
+    keuze = int(input("Kies een keuze uit het menu? "))
+
+    while keuze  > len(keuzeMenu):
+        print("Keuze niet gevonden")
+        keuze = int(input("Kies een keuze uit het menu? "))
+
+    if keuze == 1:
+        voerNieuwReceptIn()
+    elif keuze == 2:
+        toonReceptenOverzicht()
+    else:
+        print("Einde programma")
+    
 def main():
     recept1 = Recept("Kip Kerrie", "Kip kerrie zonder pakjes en zakjes")
     recept2 = Recept("Gehakt quiche met paprika", "Een heerlijke quiche met gehakt en paprika.")
@@ -73,24 +97,7 @@ def main():
     recepten.append(recept2)
     recepten.append(recept3)
 
-    keuzeNummer = 1
-    keuzeMenu = ["Recept toevoegen", "Overzicht tonen", "Exit"]
-    for keuze in keuzeMenu:
-        print(keuzeNummer, keuze)
-        keuzeNummer += 1
-
-    keuze = int(input("Kies een keuze uit het menu? "))
-
-    while keuze  > len(keuzeMenu):
-        print("Keuze niet gevonden")
-        keuze = int(input("Kies een keuze uit het menu? "))
-
-    if keuze == 1:
-        voerNieuwReceptIn()
-    elif keuze == 2:
-        toonReceptenOverzicht()
-    else:
-        print("Einde programma")
+    keuzeMenuOpties()
 
 if __name__ == "__main__":
     main()
