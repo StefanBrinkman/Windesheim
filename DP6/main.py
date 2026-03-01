@@ -2,9 +2,15 @@ from recept import Recept
 from ingredient import Ingredient
 from stap import Stap
 
-def main():
-    recepten = []
+recepten = []
 
+def voerNieuwReceptIn():
+    print("VOER NIEUW RECEPT IN: ")
+
+def toonOverzicht():
+    print("TOON OVERZICHT RECEPTEN")
+
+def main():
     recept1 = Recept("Kip Kerrie", "Kip kerrie zonder pakjes en zakjes")
     recept2 = Recept("Gehakt quiche met paprika", "Een heerlijke quiche met gehakt en paprika.")
     recept3 = Recept("Babi panpang", "Rijst met atjar tjampoer")
@@ -37,10 +43,18 @@ def main():
         keuzeNummer += 1
 
     keuze = int(input("Kies een keuze uit het menu? "))
+
     while keuze  > len(keuzeMenu):
         print("Keuze niet gevonden")
         keuze = int(input("Kies een keuze uit het menu? "))
-    
+
+    if keuze == 1:
+        voerNieuwReceptIn()
+    elif keuze == 2:
+        toonOverzicht()
+    else:
+        print("Einde programma")
+
     counter = 1
     for recpt in recepten:
         print(f"Receptnummer {counter}", recpt.get_naam())
