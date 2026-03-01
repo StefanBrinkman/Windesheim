@@ -7,8 +7,45 @@ recepten = []
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
 
-def toonOverzicht():
+def toonReceptenOverzicht():
     print("TOON OVERZICHT RECEPTEN")
+    counter = 1
+    for recpt in recepten:
+        print(f"Receptnummer {counter}", recpt.get_naam())
+        counter += 1
+
+    gekozenGerecht = int(input("Kies een gerecht: ")) - 1
+    while gekozenGerecht  > len(recepten):
+        print("Recept niet gevonden")
+        gekozenGerecht = int(input("Kies een gerecht: "))
+    
+    aantalPersonen = input("Voor hoeveel personen is het recept? ")
+    while aantalPersonen.isdigit() == False:
+        print("Foutieve invoer")
+        aantalPersonen = input("Voor hoeveel personen is het recept? ")
+
+    wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
+    while (wiltPlantaardigAlternatief != "ja" and wiltPlantaardigAlternatief != "nee"):
+        print("Foutive invoer")
+        wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
+    
+
+    # Gekozen Recept
+    recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
+    totaalCal = 0
+
+    for ingredient in recepten[gekozenGerecht].get_ingredienten():
+        ingredient.set_hoeveelheid(aantalPersonen)
+        gekozenIngredient = ingredient.get_ingredient(wiltPlantaardigAlternatief)
+        totaalCal += gekozenIngredient.get_kcal() * int(aantalPersonen)
+        print(f"* {gekozenIngredient.get_naam()}")
+
+    print(f"Totaal {totaalCal} calorieën")
+
+    stapCounter = 1
+    for stap in recepten[gekozenGerecht].get_stappen():
+        print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
+        stapCounter += 1
 
 def main():
     recept1 = Recept("Kip Kerrie", "Kip kerrie zonder pakjes en zakjes")
@@ -51,47 +88,9 @@ def main():
     if keuze == 1:
         voerNieuwReceptIn()
     elif keuze == 2:
-        toonOverzicht()
+        toonReceptenOverzicht()
     else:
         print("Einde programma")
-
-    counter = 1
-    for recpt in recepten:
-        print(f"Receptnummer {counter}", recpt.get_naam())
-        counter += 1
-
-    gekozenGerecht = int(input("Kies een gerecht: ")) - 1
-    while gekozenGerecht  > len(recepten):
-        print("Recept niet gevonden")
-        gekozenGerecht = int(input("Kies een gerecht: "))
-    
-    aantalPersonen = input("Voor hoeveel personen is het recept? ")
-    while aantalPersonen.isdigit() == False:
-        print("Foutieve invoer")
-        aantalPersonen = input("Voor hoeveel personen is het recept? ")
-
-    wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
-    while (wiltPlantaardigAlternatief != "ja" and wiltPlantaardigAlternatief != "nee"):
-        print("Foutive invoer")
-        wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
-    
-
-    # Gekozen Recept
-    recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
-    totaalCal = 0
-
-    for ingredient in recepten[gekozenGerecht].get_ingredienten():
-        ingredient.set_hoeveelheid(aantalPersonen)
-        gekozenIngredient = ingredient.get_ingredient(wiltPlantaardigAlternatief)
-        totaalCal += gekozenIngredient.get_kcal()
-        print(f"* {gekozenIngredient.get_naam()}")
-
-    print(f"Totaal {totaalCal} calorieën")
-
-    stapCounter = 1
-    for stap in recepten[gekozenGerecht].get_stappen():
-        print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
-        stapCounter += 1
 
 if __name__ == "__main__":
     main()
