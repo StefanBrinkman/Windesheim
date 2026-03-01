@@ -30,6 +30,14 @@ def main():
     recepten.append(recept2)
     recepten.append(recept3)
 
+    keuzeNummer = 1
+    keuzeMenu = ["Recept toevoegen", "Overzicht tonen", "Exit"]
+    for keuze in keuzeMenu:
+        print(keuzeNummer, keuze)
+        keuzeNummer += 1
+
+    keuzeMenu = int(input("Welke keuze? "))
+
     counter = 1
     for recpt in recepten:
         print(f"Receptnummer {counter}", recpt.get_naam())
