@@ -36,8 +36,11 @@ def main():
         print(keuzeNummer, keuze)
         keuzeNummer += 1
 
-    keuzeMenu = int(input("Welke keuze? "))
-
+    keuze = int(input("Kies een keuze uit het menu? "))
+    while keuze  > len(keuzeMenu):
+        print("Keuze niet gevonden")
+        keuze = int(input("Kies een keuze uit het menu? "))
+    
     counter = 1
     for recpt in recepten:
         print(f"Receptnummer {counter}", recpt.get_naam())
