@@ -8,6 +8,9 @@ def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
     nieuwReceptNaam = input("Voer naam recept in: ")
     nieuwReceptOmschrijving = input("Voer omschrijving recept in: ")
+
+    nieuwRecept = Recept(nieuwReceptNaam, nieuwReceptOmschrijving)
+    recepten.append(nieuwRecept)
     keuzeMenuOpties()
 
 def toonReceptenOverzicht():
@@ -42,7 +45,7 @@ def toonReceptenOverzicht():
                 print("Foutive invoer")
             else:
                 break
-        except:
+        except ValueError:
             print("Foutieve invoer")
     
     # Gekozen Recept
@@ -73,7 +76,7 @@ def keuzeMenuOpties():
 
     keuze = int(input("Kies een keuze uit het menu? "))
 
-    while keuze  > len(keuzeMenu):
+    while keuze > len(keuzeMenu):
         print("Keuze niet gevonden")
         keuze = int(input("Kies een keuze uit het menu? "))
 
