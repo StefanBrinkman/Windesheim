@@ -6,6 +6,8 @@ recepten = []
 
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
+    nieuwReceptNaam = input("Voer naam recept in: ")
+    nieuwReceptOmschrijving = input("Voer omschrijving recept in: ")
     keuzeMenuOpties()
 
 def toonReceptenOverzicht():
@@ -30,7 +32,6 @@ def toonReceptenOverzicht():
         print("Foutive invoer")
         wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
     
-
     # Gekozen Recept
     recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
     totaalCal = 0
@@ -49,7 +50,6 @@ def toonReceptenOverzicht():
         stapCounter += 1
 
     keuzeMenuOpties()
-
 
 def keuzeMenuOpties():
     keuzeNummer = 1
