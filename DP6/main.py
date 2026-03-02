@@ -17,10 +17,16 @@ def toonReceptenOverzicht():
         print(f"Receptnummer {counter}", recpt.get_naam())
         counter += 1
 
-    gekozenGerecht = int(input("Kies een gerecht: ")) - 1
-    while gekozenGerecht  > len(recepten):
-        print("Recept niet gevonden")
-        gekozenGerecht = int(input("Kies een gerecht: "))
+    while True:
+        try:
+            gekozenGerecht = int(input("Kies een gerecht: "))
+            if gekozenGerecht > len(recepten):
+                print("Recept niet gevonden")
+            else:
+                gekozenGerecht -= 1
+                break
+        except ValueError:
+            print("Recept niet gevonden")
     
     aantalPersonen = input("Voor hoeveel personen is het recept? ")
     while aantalPersonen.isdigit() == False:
