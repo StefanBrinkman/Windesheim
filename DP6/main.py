@@ -28,15 +28,22 @@ def toonReceptenOverzicht():
         except ValueError:
             print("Recept niet gevonden")
     
-    aantalPersonen = input("Voor hoeveel personen is het recept? ")
-    while aantalPersonen.isdigit() == False:
-        print("Foutieve invoer")
-        aantalPersonen = input("Voor hoeveel personen is het recept? ")
+    while True:
+        try:
+            aantalPersonen = int(input("Voor hoeveel personen is het recept? "))
+            break
+        except ValueError:
+            print("Foutieve invoer")
 
-    wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
-    while (wiltPlantaardigAlternatief != "ja" and wiltPlantaardigAlternatief != "nee"):
-        print("Foutive invoer")
-        wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
+    while True:
+        try:
+            wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
+            if wiltPlantaardigAlternatief != 'ja' and wiltPlantaardigAlternatief != 'nee':
+                print("Foutive invoer")
+            else:
+                break
+        except:
+            print("Foutieve invoer")
     
     # Gekozen Recept
     recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
