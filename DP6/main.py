@@ -21,15 +21,17 @@ def voegIngredientToe(recept):
                         alternatiefHoeveelheid = int(input(f"Hoeveel gram {alternatiefIngredient} moet toegevoegd worden? "))
                         alternatiefKcal = int(input(f"Hoeveel kcal is het ingredient? "))
                         recept.voeg_ingredient_toe(Ingredient(ingredient, hoeveelheid, "gram",  kcal, Ingredient(alternatiefIngredient, alternatiefHoeveelheid, "gram", alternatiefKcal)))
-                        break
                     except ValueError:
                         print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
                 else:
                     recept.voeg_ingredient_toe(Ingredient(ingredient, hoeveelheid, "gram", kcal))
-                    break
-            
             else:
                 print("Ingredient of hoeveelheid is verkeer ingevuld")
+
+            volgendeIngredient = str(input("Wilt u een nieuwe ingredient toevoegen?  (ja/nee) "))
+            if volgendeIngredient == 'nee':
+                nieuweIngredient = False
+                break
         except ValueError:
             print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
 
