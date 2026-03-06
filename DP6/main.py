@@ -5,9 +5,37 @@ from stap import Stap
 recepten = []
 
 def voegIngredientenToe(recept):
+    print("Voeg ingredienten toe aan recept:")
+    nieuweIngredient = True
+
+    while nieuweIngredient:
+        try:
+            ingredient = str(input("Voer naam ingredient in:  "))
+            hoeveelheid = int(input(f"Hoeveel gram {ingredient} moet toegevoegd worden? "))
+            kcal = int(input(f"Hoeveel kcal is het ingredient? "))
+            if ingredient and hoeveelheid > 0:
+                plantaardig = str(input("Plantaardig alternatief toevoegen? (ja/nee) "))
+                if plantaardig == 'ja':
+                    try:
+                        alternatiefIngredient = str(input("Voer naam alternatief ingredient in:  "))
+                        alternatiefHoeveelheid = int(input(f"Hoeveel gram {alternatiefIngredient} moet toegevoegd worden? "))
+                        alternatiefKcal = int(input(f"Hoeveel kcal is het ingredient? "))
+                        recept.voeg_ingredient_toe(Ingredient(ingredient, hoeveelheid, "gram",  kcal, Ingredient(alternatiefIngredient, alternatiefHoeveelheid, "gram", alternatiefKcal)))
+                        break
+                    except ValueError:
+                        print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
+                else:
+                    recept.voeg_ingredient_toe(Ingredient(ingredient, hoeveelheid, "gram", kcal))
+                    break
+            
+            else:
+                print("Ingredient of hoeveelheid is verkeer ingevuld")
+        except ValueError:
+            print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
+
 
 def voegStapOp(recept):
-    print("Vraag stap")
+    print("Voeg stap(en) toe")
     nieuweStap = True
 
     while nieuweStap:
@@ -19,7 +47,6 @@ def voegStapOp(recept):
         try:
             volgendeStap = str(input("Wilt u een nieuwe stap toevoegen?  (ja/nee) "))
             recept.voeg_stap_toe(Stap(volgendeStap))
-            print(recept.get_stappen())
             if volgendeStap == 'nee':
                 nieuweStap = False
                 break
@@ -34,7 +61,9 @@ def voerNieuwReceptIn():
     nieuwReceptOmschrijving = input("Voer omschrijving recept in: ")
 
     nieuwRecept = Recept(nieuwReceptNaam, nieuwReceptOmschrijving)
+    voegIngredientenToe(nieuwRecept)
     voegStapOp(nieuwRecept)
+    recepten.append(nieuwRecept)
     keuzeMenuOpties()
 
 def verwijderenRecept(receptNummer):
