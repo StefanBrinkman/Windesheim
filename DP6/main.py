@@ -4,13 +4,37 @@ from stap import Stap
 
 recepten = []
 
+def voegIngredientenToe(recept):
+
+def voegStapOp(recept):
+    print("Vraag stap")
+    nieuweStap = True
+
+    while nieuweStap:
+        try:
+            stap = str(input("Voeg volgende stap toe: "))            
+        except ValueError:
+            print("Moet text bevatten")
+
+        try:
+            volgendeStap = str(input("Wilt u een nieuwe stap toevoegen?  (ja/nee) "))
+            recept.voeg_stap_toe(Stap(volgendeStap))
+            print(recept.get_stappen())
+            if volgendeStap == 'nee':
+                nieuweStap = False
+                break
+        except ValueError:
+            print("Voer ja of nee in.")
+        
+
+
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
     nieuwReceptNaam = input("Voer naam recept in: ")
     nieuwReceptOmschrijving = input("Voer omschrijving recept in: ")
 
     nieuwRecept = Recept(nieuwReceptNaam, nieuwReceptOmschrijving)
-    recepten.append(nieuwRecept)
+    voegStapOp(nieuwRecept)
     keuzeMenuOpties()
 
 def verwijderenRecept(receptNummer):
