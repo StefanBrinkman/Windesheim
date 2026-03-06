@@ -46,7 +46,7 @@ def voegStapOp(recept):
 
         try:
             volgendeStap = str(input("Wilt u een nieuwe stap toevoegen?  (ja/nee) "))
-            recept.voeg_stap_toe(Stap(volgendeStap))
+            recept.voeg_stap_toe(Stap(stap))
             if volgendeStap == 'nee':
                 nieuweStap = False
                 break
@@ -109,7 +109,7 @@ def toonReceptenOverzicht():
     recepten[gekozenGerecht - 1].set_aantal_personen(aantalPersonen)
     totaalCal = 0
 
-    for ingredient in recepten[gekozenGerecht].get_ingredienten():
+    for ingredient in recepten[gekozenGerecht - 1].get_ingredienten():
         ingredient.set_hoeveelheid(aantalPersonen)
         gekozenIngredient = ingredient.get_ingredient(wiltPlantaardigAlternatief)
         totaalCal += gekozenIngredient.get_kcal() * int(aantalPersonen)
@@ -118,7 +118,7 @@ def toonReceptenOverzicht():
     print(f"Totaal {totaalCal} calorieën")
 
     stapCounter = 1
-    for stap in recepten[gekozenGerecht].get_stappen():
+    for stap in recepten[gekozenGerecht - 1].get_stappen():
         print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
         stapCounter += 1
 
