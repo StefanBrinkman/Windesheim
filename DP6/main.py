@@ -4,7 +4,7 @@ from stap import Stap
 
 recepten = []
 
-def voegIngredientenToe(recept):
+def voegIngredientToe(recept):
     print("Voeg ingredienten toe aan recept:")
     nieuweIngredient = True
 
@@ -61,7 +61,7 @@ def voerNieuwReceptIn():
     nieuwReceptOmschrijving = input("Voer omschrijving recept in: ")
 
     nieuwRecept = Recept(nieuwReceptNaam, nieuwReceptOmschrijving)
-    voegIngredientenToe(nieuwRecept)
+    voegIngredientToe(nieuwRecept)
     voegStapOp(nieuwRecept)
     recepten.append(nieuwRecept)
     keuzeMenuOpties()
