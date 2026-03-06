@@ -1,8 +1,13 @@
 from recept import Recept 
 from ingredient import Ingredient
 from stap import Stap
+from reportlab.pdfgen import canvas
+from reportlab.lib import colors
 
 recepten = []
+
+def maakPDFBestand():
+    print("PDF")
 
 def voegIngredientToe(recept):
     print("Voeg ingredienten toe aan recept:")
@@ -35,7 +40,6 @@ def voegIngredientToe(recept):
         except ValueError:
             print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
 
-
 def voegStapOp(recept):
     print("Voeg stap(en) toe")
     nieuweStap = True
@@ -55,8 +59,6 @@ def voegStapOp(recept):
         except ValueError:
             print("Voer ja of nee in.")
         
-
-
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
     nieuwReceptNaam = input("Voer naam recept in: ")
@@ -134,8 +136,6 @@ def toonReceptenOverzicht():
         else:
             print("Foutive invoer")
             
-        
-
 def keuzeMenuOpties():
     keuzeNummer = 1
     keuzeMenu = ["Recept toevoegen", "Overzicht tonen", "Exit"]
