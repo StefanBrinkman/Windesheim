@@ -7,22 +7,47 @@ from reportlab.lib import colors
 recepten = []
 
 def maakPDFBestand(receptInPDF):
-    print("PDF")
+    recept = recepten[receptInPDF - 1]
     pdfBestandsNaam = 'recept.pdf'
     pdfTitel = 'Recept'
     titel = 'Recept informatie'
     subTitel = 'Informatie over recept'
 
-    bestandsInformatie = []
+    receptInformatie = [
+        f"Naam: {recept.get_naam()}",
+        f"Omschrijving: {recept.get_omschrijving()}",
+        f"Aantal personen: {recept.get_aantal_personen()}"]
+    stappenLijst = recept.get_stappen()
+    ingredientenLijst = recept.get_ingredienten()
 
     pdf = canvas.Canvas(pdfBestandsNaam)
     pdf.setTitle(pdfTitel)
-    pdf.setFont('Roboto', 20)
+    pdf.setFont("Helvetica-Bold", 16)
     pdf.drawCentredString(300, 770, titel)
     pdf.setFillColorRGB(0,0,255)
-    pdf.setFont("Roboto", 18)
+    pdf.setFont("Courier-Bold", 10)
     pdf.drawCentredString(300, 870, subTitel)
-    pdf.save()
+
+    text = pdf.beginText(40, 680)
+    for receptInfo in receptInformatie:
+        text.textLines(receptInfo)
+    
+    text.textLines("")
+    text.textLines("Ingredienten: ")
+    for ingredientInfo in ingredientenLijst:
+        text.textLines(f"{ingredientInfo.get_hoeveelheid()} gram  {ingredientInfo.get_naam()}.")
+
+    text.textLines("")
+    text.textLines("STAPPEN: ")
+    for stapInfo in stappenLijst:
+        text.textLines(stapInfo.get_beschrijving())
+    
+    pdf.drawText(text)
+    try:
+        pdf.save()
+        print("PDF is aangemaakt")
+    except:
+        print("Er is iets fout gegaan met het maken van de PDF")
 
 def voegIngredientToe(recept):
     print("Voeg ingredienten toe aan recept:")
@@ -140,6 +165,12 @@ def toonReceptenOverzicht():
     for stap in recepten[gekozenGerecht - 1].get_stappen():
         print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
         stapCounter += 1
+
+    while True:
+        pdfPrinten = str(input("Wilt u een PDF van het recept? (ja/nee) "))
+        if pdfPrinten == 'ja' :
+            maakPDFBestand(gekozenGerecht)
+            break
 
     while True:
         verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
