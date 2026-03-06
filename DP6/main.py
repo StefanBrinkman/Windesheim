@@ -6,8 +6,23 @@ from reportlab.lib import colors
 
 recepten = []
 
-def maakPDFBestand():
+def maakPDFBestand(receptInPDF):
     print("PDF")
+    pdfBestandsNaam = 'recept.pdf'
+    pdfTitel = 'Recept'
+    titel = 'Recept informatie'
+    subTitel = 'Informatie over recept'
+
+    bestandsInformatie = []
+
+    pdf = canvas.Canvas(pdfBestandsNaam)
+    pdf.setTitle(pdfTitel)
+    pdf.setFont('Roboto', 20)
+    pdf.drawCentredString(300, 770, titel)
+    pdf.setFillColorRGB(0,0,255)
+    pdf.setFont("Roboto", 18)
+    pdf.drawCentredString(300, 870, subTitel)
+    pdf.save()
 
 def voegIngredientToe(recept):
     print("Voeg ingredienten toe aan recept:")
