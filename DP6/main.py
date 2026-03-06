@@ -13,23 +13,27 @@ def voerNieuwReceptIn():
     recepten.append(nieuwRecept)
     keuzeMenuOpties()
 
+def verwijderenRecept(receptNummer):
+    print("Verwijderen recept")
+    recepten.pop(receptNummer)
+    print("Recept is verwijderd")
+    keuzeMenuOpties()
+
 def toonReceptenOverzicht():
     print("TOON OVERZICHT RECEPTEN")
     counter = 1
+    gekozenGerecht = 0
+    verwijderRecept = ""
+
     for recpt in recepten:
         print(f"Receptnummer {counter}", recpt.get_naam())
         counter += 1
 
-    while True:
+    while gekozenGerecht < 1 or gekozenGerecht > len(recepten):
         try:
-            gekozenGerecht = int(input("Kies een gerecht: "))
-            if gekozenGerecht > len(recepten):
-                print("Recept niet gevonden")
-            else:
-                gekozenGerecht -= 1
-                break
-        except ValueError:
-            print("Recept niet gevonden")
+            gekozenGerecht = int(input("Kies een recept: "))
+        except:
+            pass
     
     while True:
         try:
@@ -49,7 +53,7 @@ def toonReceptenOverzicht():
             print("Foutieve invoer")
     
     # Gekozen Recept
-    recepten[gekozenGerecht].set_aantal_personen(aantalPersonen)
+    recepten[gekozenGerecht - 1].set_aantal_personen(aantalPersonen)
     totaalCal = 0
 
     for ingredient in recepten[gekozenGerecht].get_ingredienten():
@@ -65,7 +69,17 @@ def toonReceptenOverzicht():
         print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
         stapCounter += 1
 
-    keuzeMenuOpties()
+    while True:
+        verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
+        if verwijderRecept == 'ja' :
+            verwijderenRecept(gekozenGerecht - 1)
+        elif verwijderRecept == 'nee':
+            keuzeMenuOpties()
+            break
+        else:
+            print("Foutive invoer")
+            
+        
 
 def keuzeMenuOpties():
     keuzeNummer = 1
