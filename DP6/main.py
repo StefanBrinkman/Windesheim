@@ -6,6 +6,18 @@ from reportlab.lib import colors
 
 recepten = []
 
+def vraagPDFBestand(gerechtNummer):
+    while True:
+        pdfPrinten = str(input("Wilt u een PDF van het recept? (ja/nee) "))
+        if pdfPrinten == 'ja' or pdfPrinten == 'nee':
+            if pdfPrinten == 'ja' :
+                maakPDFBestand(gerechtNummer)
+            else:
+                keuzeMenuOpties()
+            break
+        else:
+            print("Foutieve input")
+
 def maakPDFBestand(receptInPDF):
     recept = recepten[receptInPDF - 1]
     pdfBestandsNaam = 'recept.pdf'
@@ -183,16 +195,7 @@ def toonReceptenOverzicht():
     toonStappenRecept(gekozenGerecht)
     toonTotaalCalorieen(gekozenGerecht, wiltPlantaardigAlternatief, aantalPersonen)
 
-    while True:
-        pdfPrinten = str(input("Wilt u een PDF van het recept? (ja/nee) "))
-        if pdfPrinten == 'ja' or pdfPrinten == 'nee':
-            if pdfPrinten == 'ja' :
-                maakPDFBestand(gekozenGerecht)
-                break
-            else:
-                keuzeMenuOpties()
-        else:
-            print("Foutieve input")
+    vraagPDFBestand(gekozenGerecht)
 
     while True:
         try:
