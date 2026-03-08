@@ -1,7 +1,6 @@
 from stap import Stap
 from ingredient import Ingredient
 
-
 class Recept:
     def __init__(self,
                  naam:str,
@@ -42,9 +41,6 @@ class Recept:
 
     def get_aantal_personen(self):
         return self.__aantalPersonen
-
-    def get_plantaardig_recept(self, plantaardig):
-        return True
 
     def __str__(self):
         return f"{self.__naam} geschreven door Stefan Brinkman \n Studentnummer: 1225502 Klas: ICTBC2j"
