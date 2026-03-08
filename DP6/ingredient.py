@@ -1,9 +1,9 @@
 class Ingredient:
     def __init__(self,
-                 naam,
-                 hoeveelheid,
-                 eenheid,
-                 kcal,
+                 naam: str,
+                 hoeveelheid: int,
+                 eenheid: str,
+                 kcal: int,
                  plantaardig_alternatief=None):
         self.__naam = naam
         self.__hoeveelheid = hoeveelheid
@@ -14,12 +14,21 @@ class Ingredient:
     def get_naam(self):
         return self.__naam
 
+    def set_naam(self, naam):
+        self.__naam = naam
+
     def set_hoeveelheid(self, personen):
         hoeveelheid = self.__hoeveelheid * personen
         self.__hoeveelheid = hoeveelheid
 
     def get_hoeveelheid(self):
         return self.__hoeveelheid
+
+    def get_eenheid(self):
+        return self.__eenheid
+
+    def set_eenheid(self, eenheid):
+        self.__eenheid = eenheid
 
     def get_kcal(self):
         return self.__kcal
