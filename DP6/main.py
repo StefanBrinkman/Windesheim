@@ -150,30 +150,33 @@ def vraagPlantaardigAlternatiefOp():
         except ValueError:
             print("Foutieve invoer")
 
+def toonStappenRecept(recept):
+    stapCounter = 1
+    for stap in recepten[recept - 1].get_stappen():
+        print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
+        stapCounter += 1
+
+def toonTotaalCalorieen(gekozenGerecht, plantaardigAlternatief, personen):
+    totaalCal = 0
+
+    for ingredient in recepten[gekozenGerecht - 1].get_ingredienten():
+        ingredient.set_hoeveelheid(personen)
+        gekozenIngredient = ingredient.get_ingredient(plantaardigAlternatief)
+        totaalCal += gekozenIngredient.get_kcal() * int(personen)
+        print(f"* {gekozenIngredient.get_naam()}")
+
+    print(f"Totaal {totaalCal} calorieën")
+
 def toonReceptenOverzicht():
     print("TOON OVERZICHT RECEPTEN")
     verwijderRecept = ""
     
     gekozenGerecht = vraagGekozenGerechtOp()
     aantalPersonen = vraagAantalPersonenOp()
-    wiltPlantaardigAlternatief = vraagPlantaardigAlternatiefOp()
-
-    # Gekozen Recept
     recepten[gekozenGerecht - 1].set_aantal_personen(aantalPersonen)
-    totaalCal = 0
-
-    for ingredient in recepten[gekozenGerecht - 1].get_ingredienten():
-        ingredient.set_hoeveelheid(aantalPersonen)
-        gekozenIngredient = ingredient.get_ingredient(wiltPlantaardigAlternatief)
-        totaalCal += gekozenIngredient.get_kcal() * int(aantalPersonen)
-        print(f"* {gekozenIngredient.get_naam()}")
-
-    print(f"Totaal {totaalCal} calorieën")
-
-    stapCounter = 1
-    for stap in recepten[gekozenGerecht - 1].get_stappen():
-        print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
-        stapCounter += 1
+    wiltPlantaardigAlternatief = vraagPlantaardigAlternatiefOp()
+    toonStappenRecept(gekozenGerecht)
+    toonTotaalCalorieen(gekozenGerecht, wiltPlantaardigAlternatief, aantalPersonen)
 
     while True:
         pdfPrinten = str(input("Wilt u een PDF van het recept? (ja/nee) "))
