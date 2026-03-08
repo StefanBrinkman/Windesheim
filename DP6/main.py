@@ -126,9 +126,10 @@ def vraagAantalPersonenOp():
     while True:
         try:
             aantalPersonen = int(input("Voor hoeveel personen is het recept? "))
-            return aantalPersonen
         except ValueError:
             print("Foutieve invoer")
+
+        return aantalPersonen
 
 def verwijderenRecept(receptNummer):
     print("Verwijderen recept")
@@ -175,7 +176,6 @@ def toonStappenRecept(recept):
 
 def toonTotaalCalorieen(gekozenGerecht, plantaardigAlternatief, personen):
     totaalCal = 0
-
     for ingredient in recepten[gekozenGerecht - 1].get_ingredienten():
         ingredient.set_hoeveelheid(personen)
         gekozenIngredient = ingredient.get_ingredient(plantaardigAlternatief)
@@ -197,24 +197,23 @@ def toonReceptenOverzicht():
 
     vraagPDFBestand(gekozenGerecht)
 
-    while True:
-        try:
-            verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
-        except:
-            print("Foutive invoer")
-        
-        if verwijderRecept == 'ja' :
-            verwijderenRecept(gekozenGerecht - 1)
-        elif verwijderRecept == 'nee':
-            keuzeMenuOpties()
-            break
-        else:
-            print("Foutive invoer")
+    try:
+        verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
+    except:
+        print("Foutive invoer")
+    
+    if verwijderRecept == 'ja' :
+        verwijderenRecept(gekozenGerecht - 1)
+    elif verwijderRecept == 'nee':
+        keuzeMenuOpties()
+    else:
+        print("Foutive invoer")
             
 def keuzeMenuOpties():
     keuzeNummer = 1
     keuzeMenu = ["Recept toevoegen", "Overzicht tonen", "Exit"]
     keuze = 0
+
     for keuze in keuzeMenu:
         print(keuzeNummer, keuze)
         keuzeNummer += 1
