@@ -46,12 +46,14 @@ def maakPDFBestand(receptInPDF: int):
     text.textLines("")
     text.textLines("Ingredienten: ")
     for ingredientInfo in ingredientenLijst:
-        text.textLines(f"{ingredientInfo.get_hoeveelheid()} gram  {ingredientInfo.get_naam()}.")
+        text.textLines(f"* {ingredientInfo.get_hoeveelheid()} gram  {ingredientInfo.get_naam()}.")
 
     text.textLines("")
     text.textLines("STAPPEN: ")
+    stapNummer = 1
     for stapInfo in stappenLijst:
-        text.textLines(stapInfo.get_beschrijving())
+        text.textLines(f"{stapNummer} {stapInfo.get_beschrijving()}")
+        stapNummer += 1
     
     pdf.drawText(text)
     try:
@@ -61,7 +63,7 @@ def maakPDFBestand(receptInPDF: int):
         print("Er is iets fout gegaan met het maken van de PDF")
     vraagVerwijderenRecept(receptInPDF)
 
-def voegIngredientToe(recept):
+def voegIngredientToe(recept): 
     print("Voeg ingredienten toe aan recept:")
     nieuweIngredient = True
 
@@ -129,7 +131,6 @@ def voegReceptToe(nieuwRecept: Recept):
         print("Toevoegen recept is mislukt!")
 
     nieuwReceptIndex = recepten.index(nieuwRecept)
-    aantalPersonen = nieuwRecept.get_aantal_personen()
     print(f"Naam: {nieuwRecept.get_naam()}")
     print(f"Omschrijving: {nieuwRecept.get_omschrijving()}")
 
@@ -213,7 +214,6 @@ def vraagPlantaardigAlternatiefOp():
 
 def toonStappenRecept(recept: int):
     stapCounter = 1
-    print(recepten[recept].get_stappen())
     for stap in recepten[recept].get_stappen():
         print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
         stapCounter += 1
