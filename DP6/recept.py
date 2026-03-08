@@ -12,6 +12,12 @@ class Recept:
     def get_ingredienten(self):
         return self.__ingredient_list
     
+    def voeg_omschrijving_toe(self, omschrijving):
+        self.__omschrijving = omschrijving
+
+    def get_omschrijving(self):
+        return self.__omschrijving
+    
     def get_naam(self):
         return self.__naam
     
