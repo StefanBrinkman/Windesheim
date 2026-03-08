@@ -124,34 +124,40 @@ def verwijderenRecept(receptNummer):
     print("Recept is verwijderd")
     keuzeMenuOpties()
 
-def toonReceptenOverzicht():
-    print("TOON OVERZICHT RECEPTEN")
+def vraagGekozenGerechtOp():
+    gerecht = 0
     counter = 1
-    gekozenGerecht = 0
-    verwijderRecept = ""
-
     for recpt in recepten:
         print(f"Receptnummer {counter}", recpt.get_naam())
         counter += 1
 
-    while gekozenGerecht < 1 or gekozenGerecht > len(recepten):
+    while gerecht < 1 or gerecht > len(recepten):
         try:
-            gekozenGerecht = int(input("Kies een recept: "))
+            gerecht = int(input("Kies een recept: "))
+            return gerecht
         except:
-            pass
-    
-    aantalPersonen = vraagAantalPersonenOp()
+            print("Foutieve invoer")
 
+def vraagPlantaardigAlternatiefOp():
     while True:
         try:
             wiltPlantaardigAlternatief = input("Wilt u een plantaardig alternatief voor dit recept? (ja/nee): ")
             if wiltPlantaardigAlternatief != 'ja' and wiltPlantaardigAlternatief != 'nee':
                 print("Foutive invoer")
             else:
+                return wiltPlantaardigAlternatief
                 break
         except ValueError:
             print("Foutieve invoer")
+
+def toonReceptenOverzicht():
+    print("TOON OVERZICHT RECEPTEN")
+    verwijderRecept = ""
     
+    gekozenGerecht = vraagGekozenGerechtOp()
+    aantalPersonen = vraagAantalPersonenOp()
+    wiltPlantaardigAlternatief = vraagPlantaardigAlternatiefOp()
+
     # Gekozen Recept
     recepten[gekozenGerecht - 1].set_aantal_personen(aantalPersonen)
     totaalCal = 0
