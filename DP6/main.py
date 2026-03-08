@@ -130,8 +130,14 @@ def voegReceptToe(nieuwRecept: Recept):
         print("Toevoegen recept is mislukt!")
 
     nieuwReceptIndex = recepten.index(nieuwRecept)
+    aantalPersonen = nieuwRecept.get_aantal_personen()
+    print(f"Naam: {nieuwRecept.get_naam()}")
+    print(f"Omschrijving: {nieuwRecept.get_omschrijving()}")
+
+    ingredientenLijst = nieuwRecept.get_ingredienten()
+    for ingredient in ingredientenLijst:
+        print(f"{ingredient.get_hoeveelheid()} gram {ingredient.get_naam()}.")
     toonStappenRecept(nieuwReceptIndex)
-    # toonTotaalCalorieen(nieuwReceptIndex, wiltPlantaardigAlternatief, aantalPersonen)
     
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
@@ -213,7 +219,7 @@ def toonStappenRecept(recept: int):
 
 def toonTotaalCalorieen(gekozenGerecht, plantaardigAlternatief, personen):
     totaalCal = 0
-    for ingredient in recepten[gekozenGerecht - 1].get_ingredienten():
+    for ingredient in recepten[gekozenGerecht].get_ingredienten():
         ingredient.set_hoeveelheid(personen)
         gekozenIngredient = ingredient.get_ingredient(plantaardigAlternatief)
         totaalCal += gekozenIngredient.get_kcal() * int(personen)
@@ -228,7 +234,7 @@ def toonReceptenOverzicht():
     recepten[gekozenGerecht - 1].set_aantal_personen(aantalPersonen)
     wiltPlantaardigAlternatief = vraagPlantaardigAlternatiefOp()
     toonStappenRecept(gekozenGerecht - 1)
-    toonTotaalCalorieen(gekozenGerecht, wiltPlantaardigAlternatief, aantalPersonen)
+    toonTotaalCalorieen(gekozenGerecht - 1, wiltPlantaardigAlternatief, aantalPersonen)
 
     vraagPDFBestand(gekozenGerecht)
     vraagVerwijderenRecept(gekozenGerecht)
