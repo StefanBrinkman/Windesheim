@@ -185,11 +185,14 @@ def toonReceptenOverzicht():
 
     while True:
         pdfPrinten = str(input("Wilt u een PDF van het recept? (ja/nee) "))
-        if pdfPrinten == 'ja' :
-            maakPDFBestand(gekozenGerecht)
-            break
+        if pdfPrinten == 'ja' or pdfPrinten == 'nee':
+            if pdfPrinten == 'ja' :
+                maakPDFBestand(gekozenGerecht)
+                break
+            else:
+                keuzeMenuOpties()
         else:
-            keuzeMenuOpties()
+            print("Foutieve input")
 
     while True:
         try:
