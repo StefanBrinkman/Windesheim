@@ -227,7 +227,7 @@ def keuzeMenuOpties():
         print("Foutive invoer")
 
     while keuze > len(keuzeMenu):
-        print("Keuze niet gevonden")
+        print("Foutieve invoer. Kies toevoegen, tonen of exit")
         keuze = int(input("Kies een keuze uit het menu? "))
 
     if keuze == 1:
