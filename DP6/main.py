@@ -92,7 +92,7 @@ def voegIngredientToe(recept):
         except ValueError:
             print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
 
-def voegStapOp(recept: int):
+def voegStapOp(recept: Recept):
     print("Voeg stap(en) toe")
     nieuweStap = True
 
@@ -122,7 +122,17 @@ def voegStapOp(recept: int):
                 break
         except ValueError:
             print("Voer ja of nee in.")
-        
+
+def voegReceptToe(nieuwRecept: Recept):
+    try:
+        recepten.append(nieuwRecept)
+    except:
+        print("Toevoegen recept is mislukt!")
+
+    nieuwReceptIndex = recepten.index(nieuwRecept)
+    toonStappenRecept(nieuwReceptIndex)
+    # toonTotaalCalorieen(nieuwReceptIndex, wiltPlantaardigAlternatief, aantalPersonen)
+    
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
     nieuwReceptNaam = input("Voer naam recept in: ")
@@ -131,7 +141,7 @@ def voerNieuwReceptIn():
     nieuwRecept = Recept(nieuwReceptNaam, nieuwReceptOmschrijving)
     voegIngredientToe(nieuwRecept)
     voegStapOp(nieuwRecept)
-    recepten.append(nieuwRecept)
+    voegReceptToe(nieuwRecept)
     keuzeMenuOpties()
 
 def vraagAantalPersonenOp():
@@ -197,7 +207,7 @@ def vraagPlantaardigAlternatiefOp():
 
 def toonStappenRecept(recept: int):
     stapCounter = 1
-    for stap in recepten[recept - 1].get_stappen():
+    for stap in recepten[recept].get_stappen():
         print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
         stapCounter += 1
 
@@ -213,12 +223,11 @@ def toonTotaalCalorieen(gekozenGerecht, plantaardigAlternatief, personen):
 
 def toonReceptenOverzicht():
     print("TOON OVERZICHT RECEPTEN")
-    
     gekozenGerecht = vraagGekozenGerechtOp()
     aantalPersonen = vraagAantalPersonenOp()
     recepten[gekozenGerecht - 1].set_aantal_personen(aantalPersonen)
     wiltPlantaardigAlternatief = vraagPlantaardigAlternatiefOp()
-    toonStappenRecept(gekozenGerecht)
+    toonStappenRecept(gekozenGerecht - 1)
     toonTotaalCalorieen(gekozenGerecht, wiltPlantaardigAlternatief, aantalPersonen)
 
     vraagPDFBestand(gekozenGerecht)
