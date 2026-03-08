@@ -13,8 +13,7 @@ def vraagPDFBestand(gerechtNummer):
             if pdfPrinten == 'ja' :
                 maakPDFBestand(gerechtNummer)
             else:
-                keuzeMenuOpties()
-            break
+                vraagVerwijderenRecept(gerechtNummer)
         else:
             print("Foutieve input")
 
@@ -60,6 +59,7 @@ def maakPDFBestand(receptInPDF):
         print("PDF is aangemaakt")
     except:
         print("Er is iets fout gegaan met het maken van de PDF")
+    vraagVerwijderenRecept(receptInPDF)
 
 def voegIngredientToe(recept):
     print("Voeg ingredienten toe aan recept:")
@@ -126,10 +126,25 @@ def vraagAantalPersonenOp():
     while True:
         try:
             aantalPersonen = int(input("Voor hoeveel personen is het recept? "))
+            return aantalPersonen
         except ValueError:
             print("Foutieve invoer")
 
-        return aantalPersonen
+def vraagVerwijderenRecept(receptNummer):
+    while True:
+        try:
+            verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
+        except:
+            print("Foutive invoer")
+    
+        if verwijderRecept == 'ja' :
+            verwijderenRecept(receptNummer - 1)
+            break
+        elif verwijderRecept == 'nee':
+            keuzeMenuOpties()
+            break
+        else:
+            print("Foutive invoer")
 
 def verwijderenRecept(receptNummer):
     print("Verwijderen recept")
@@ -196,18 +211,7 @@ def toonReceptenOverzicht():
     toonTotaalCalorieen(gekozenGerecht, wiltPlantaardigAlternatief, aantalPersonen)
 
     vraagPDFBestand(gekozenGerecht)
-
-    try:
-        verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
-    except:
-        print("Foutive invoer")
-    
-    if verwijderRecept == 'ja' :
-        verwijderenRecept(gekozenGerecht - 1)
-    elif verwijderRecept == 'nee':
-        keuzeMenuOpties()
-    else:
-        print("Foutive invoer")
+    vraagVerwijderenRecept(gekozenGerecht)
             
 def keuzeMenuOpties():
     keuzeNummer = 1
