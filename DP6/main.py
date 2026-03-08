@@ -127,6 +127,7 @@ def verwijderenRecept(receptNummer):
 def vraagGekozenGerechtOp():
     gerecht = 0
     counter = 1
+
     for recpt in recepten:
         print(f"Receptnummer {counter}", recpt.get_naam())
         counter += 1
@@ -134,9 +135,13 @@ def vraagGekozenGerechtOp():
     while gerecht < 1 or gerecht > len(recepten):
         try:
             gerecht = int(input("Kies een recept: "))
-            return gerecht
         except:
             print("Foutieve invoer")
+
+        if gerecht > 1 and (gerecht - 1) < len(recepten):
+            return gerecht
+        else:
+            print("Kies een geldig gerecht")
 
 def vraagPlantaardigAlternatiefOp():
     while True:
@@ -203,11 +208,15 @@ def toonReceptenOverzicht():
 def keuzeMenuOpties():
     keuzeNummer = 1
     keuzeMenu = ["Recept toevoegen", "Overzicht tonen", "Exit"]
+    keuze = 0
     for keuze in keuzeMenu:
         print(keuzeNummer, keuze)
         keuzeNummer += 1
 
-    keuze = int(input("Kies een keuze uit het menu? "))
+    try:
+        keuze = int(input("Kies een keuze uit het menu? "))
+    except:
+        print("Foutive invoer")
 
     while keuze > len(keuzeMenu):
         print("Keuze niet gevonden")
