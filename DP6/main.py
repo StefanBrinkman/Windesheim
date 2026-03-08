@@ -6,7 +6,7 @@ from reportlab.lib import colors
 
 recepten = []
 
-def vraagPDFBestand(gerechtNummer):
+def vraagPDFBestand(gerechtNummer: int):
     while True:
         pdfPrinten = str(input("Wilt u een PDF van het recept? (ja/nee) "))
         if pdfPrinten == 'ja' or pdfPrinten == 'nee':
@@ -17,7 +17,7 @@ def vraagPDFBestand(gerechtNummer):
         else:
             print("Foutieve input")
 
-def maakPDFBestand(receptInPDF):
+def maakPDFBestand(receptInPDF: int):
     recept = recepten[receptInPDF - 1]
     pdfBestandsNaam = 'recept.pdf'
     pdfTitel = 'Recept'
@@ -92,7 +92,7 @@ def voegIngredientToe(recept):
         except ValueError:
             print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
 
-def voegStapOp(recept):
+def voegStapOp(recept: int):
     print("Voeg stap(en) toe")
     nieuweStap = True
 
@@ -130,7 +130,7 @@ def vraagAantalPersonenOp():
         except ValueError:
             print("Foutieve invoer")
 
-def vraagVerwijderenRecept(receptNummer):
+def vraagVerwijderenRecept(receptNummer: int):
     while True:
         try:
             verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
@@ -146,7 +146,7 @@ def vraagVerwijderenRecept(receptNummer):
         else:
             print("Foutive invoer")
 
-def verwijderenRecept(receptNummer):
+def verwijderenRecept(receptNummer: int):
     print("Verwijderen recept")
     recepten.pop(receptNummer)
     print("Recept is verwijderd")
@@ -183,7 +183,7 @@ def vraagPlantaardigAlternatiefOp():
         except ValueError:
             print("Foutieve invoer")
 
-def toonStappenRecept(recept):
+def toonStappenRecept(recept: int):
     stapCounter = 1
     for stap in recepten[recept - 1].get_stappen():
         print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
@@ -201,7 +201,6 @@ def toonTotaalCalorieen(gekozenGerecht, plantaardigAlternatief, personen):
 
 def toonReceptenOverzicht():
     print("TOON OVERZICHT RECEPTEN")
-    verwijderRecept = ""
     
     gekozenGerecht = vraagGekozenGerechtOp()
     aantalPersonen = vraagAantalPersonenOp()
