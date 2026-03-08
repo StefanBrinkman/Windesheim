@@ -110,6 +110,14 @@ def voerNieuwReceptIn():
     recepten.append(nieuwRecept)
     keuzeMenuOpties()
 
+def vraagAantalPersonenOp():
+    while True:
+        try:
+            aantalPersonen = int(input("Voor hoeveel personen is het recept? "))
+            return aantalPersonen
+        except ValueError:
+            print("Foutieve invoer")
+
 def verwijderenRecept(receptNummer):
     print("Verwijderen recept")
     recepten.pop(receptNummer)
@@ -132,12 +140,7 @@ def toonReceptenOverzicht():
         except:
             pass
     
-    while True:
-        try:
-            aantalPersonen = int(input("Voor hoeveel personen is het recept? "))
-            break
-        except ValueError:
-            print("Foutieve invoer")
+    aantalPersonen = vraagAantalPersonenOp()
 
     while True:
         try:
@@ -171,9 +174,15 @@ def toonReceptenOverzicht():
         if pdfPrinten == 'ja' :
             maakPDFBestand(gekozenGerecht)
             break
+        else:
+            keuzeMenuOpties()
 
     while True:
-        verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
+        try:
+            verwijderRecept = str(input("Wilt u het recept verwijderen? (ja/nee) "))
+        except:
+            print("Foutive invoer")
+        
         if verwijderRecept == 'ja' :
             verwijderenRecept(gekozenGerecht - 1)
         elif verwijderRecept == 'nee':
