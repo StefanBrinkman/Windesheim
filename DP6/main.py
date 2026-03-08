@@ -249,10 +249,12 @@ def keuzeMenuOpties():
         print(keuzeNummer, keuze)
         keuzeNummer += 1
 
-    try:
-        keuze = int(input("Kies een keuze uit het menu? "))
-    except:
-        print("Foutive invoer")
+    while True:
+        try:
+            keuze = int(input("Kies een keuze uit het menu? "))
+            break
+        except ValueError:
+            print("Foutive invoer")
 
     while keuze > len(keuzeMenu):
         print("Foutieve invoer. Kies toevoegen, tonen of exit")
