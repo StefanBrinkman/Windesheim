@@ -112,11 +112,10 @@ def voegStapOp(recept: Recept):
 
                 recept.voeg_stap_toe(Stap(stap, stapTip))
         except ValueError:
-            print("Moet text bevatten")
+            print("Voer ja of nee in.")
 
         try:
             volgendeStap = str(input("Wilt u een nieuwe stap toevoegen?  (ja/nee) "))
-            recept.voeg_stap_toe(Stap(stap))
             if volgendeStap == 'nee':
                 nieuweStap = False
                 break
@@ -136,9 +135,10 @@ def voegReceptToe(nieuwRecept: Recept):
 
     ingredientenLijst = nieuwRecept.get_ingredienten()
     for ingredient in ingredientenLijst:
-        print(f"{ingredient.get_hoeveelheid()} gram {ingredient.get_naam()}.")
+        print(f"* {ingredient.get_hoeveelheid()} gram {ingredient.get_naam()}.")
     toonStappenRecept(nieuwReceptIndex)
-    
+    print("____________")
+
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
     nieuwReceptNaam = input("Voer naam recept in: ")
@@ -213,6 +213,7 @@ def vraagPlantaardigAlternatiefOp():
 
 def toonStappenRecept(recept: int):
     stapCounter = 1
+    print(recepten[recept].get_stappen())
     for stap in recepten[recept].get_stappen():
         print(f"Stap {stapCounter}: {stap.get_beschrijving()}")
         stapCounter += 1
