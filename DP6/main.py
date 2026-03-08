@@ -103,6 +103,18 @@ def voegStapOp(recept: int):
             print("Moet text bevatten")
 
         try:
+            tip = str(input("Heeft u nog tips? (ja/nee) "))
+            if tip == 'ja' or tip == 'nee':
+                if tip == 'ja' :
+                    stapTip = str(input("Voer hier uw tip in! "))
+                else:
+                    stapTip = None
+
+                recept.voeg_stap_toe(Stap(stap, stapTip))
+        except ValueError:
+            print("Moet text bevatten")
+
+        try:
             volgendeStap = str(input("Wilt u een nieuwe stap toevoegen?  (ja/nee) "))
             recept.voeg_stap_toe(Stap(stap))
             if volgendeStap == 'nee':
