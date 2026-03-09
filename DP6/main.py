@@ -207,11 +207,11 @@ def vraagGekozenGerechtOp():
             gerecht = int(input("Kies een recept: "))
         except:
             print("Foutieve invoer")
-
-        if gerecht > 1 and (gerecht - 1) < len(recepten):
+    
+        if gerecht >= 1 and (gerecht - 1) < len(recepten):
             return gerecht
         else:
-            print("Kies een geldig gerecht")
+            print("Kies een geldig recept")
 
 def vraagPlantaardigAlternatiefOp():
     while True:
