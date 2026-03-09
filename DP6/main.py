@@ -7,15 +7,14 @@ from reportlab.lib import colors
 recepten = []
 
 def vraagPDFBestand(gerechtNummer: int):
-    while True:
-        pdfPrinten = str(input("Wilt u een PDF van het recept? (ja/nee) "))
-        if pdfPrinten == 'ja' or pdfPrinten == 'nee':
-            if pdfPrinten == 'ja' :
-                maakPDFBestand(gerechtNummer)
-            else:
-                vraagVerwijderenRecept(gerechtNummer)
+    pdfPrinten = str(input("Wilt u een PDF van het recept? (ja/nee) "))
+    if pdfPrinten == 'ja' or pdfPrinten == 'nee':
+        if pdfPrinten == 'ja' :
+            maakPDFBestand(gerechtNummer)
         else:
-            print("Foutieve input")
+            vraagVerwijderenRecept(gerechtNummer)
+    else:
+        print("Foutieve input")
 
 def maakPDFBestand(receptInPDF: int):
     recept = recepten[receptInPDF - 1]
@@ -72,7 +71,7 @@ def voegIngredientToe(recept):
             ingredient = str(input("Voer naam ingredient in:  "))
             hoeveelheid = int(input(f"Hoeveel gram {ingredient} moet toegevoegd worden? "))
             kcal = int(input(f"Hoeveel kcal is het ingredient? "))
-            if ingredient and hoeveelheid > 0:
+            if ingredient and hoeveelheid > 0 and kcal > 0:
                 plantaardig = str(input("Plantaardig alternatief toevoegen? (ja/nee) "))
                 if plantaardig == 'ja':
                     try:
@@ -81,18 +80,18 @@ def voegIngredientToe(recept):
                         alternatiefKcal = int(input(f"Hoeveel kcal is het ingredient? "))
                         recept.voeg_ingredient_toe(Ingredient(ingredient, hoeveelheid, "gram",  kcal, Ingredient(alternatiefIngredient, alternatiefHoeveelheid, "gram", alternatiefKcal)))
                     except ValueError:
-                        print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
+                        print("Tijdens het invoeren van gegevens is ergens verkeerd gegaan.")
                 else:
                     recept.voeg_ingredient_toe(Ingredient(ingredient, hoeveelheid, "gram", kcal))
             else:
-                print("Ingredient of hoeveelheid is verkeer ingevuld")
+                print("Ingredient, hoeveelheid of kcal is verkeerd ingevuld")
 
             volgendeIngredient = str(input("Wilt u een nieuwe ingredient toevoegen?  (ja/nee) "))
             if volgendeIngredient == 'nee':
                 nieuweIngredient = False
                 break
         except ValueError:
-            print("Tijden het invoeren van gegevens is ergens verkeerd gegaan.")
+            print("Tijdens het invoeren van gegevens is ergens verkeerd gegaan.")
 
 def voegStapOp(recept: Recept):
     print("Voeg stap(en) toe")
@@ -100,8 +99,13 @@ def voegStapOp(recept: Recept):
 
     while nieuweStap:
         try:
-            stap = str(input("Voeg volgende stap toe: "))            
-        except ValueError:
+            stap = str(input("Voeg volgende stap toe: "))
+            if not stap:
+                print("Voer een stap in")
+                stap = str(input("Voeg volgende stap toe: "))
+            else:
+                pass   
+        except:
             print("Moet text bevatten")
 
         try:
@@ -111,11 +115,10 @@ def voegStapOp(recept: Recept):
                     stapTip = str(input("Voer hier uw tip in! "))
                 else:
                     stapTip = None
-
                 recept.voeg_stap_toe(Stap(stap, stapTip))
         except ValueError:
             print("Voer ja of nee in.")
-
+    
         try:
             volgendeStap = str(input("Wilt u een nieuwe stap toevoegen?  (ja/nee) "))
             if volgendeStap == 'nee':
@@ -123,7 +126,7 @@ def voegStapOp(recept: Recept):
                 break
         except ValueError:
             print("Voer ja of nee in.")
-
+    
 def voegReceptToe(nieuwRecept: Recept):
     try:
         recepten.append(nieuwRecept)
@@ -137,19 +140,29 @@ def voegReceptToe(nieuwRecept: Recept):
     ingredientenLijst = nieuwRecept.get_ingredienten()
     for ingredient in ingredientenLijst:
         print(f"* {ingredient.get_hoeveelheid()} gram {ingredient.get_naam()}.")
+
     toonStappenRecept(nieuwReceptIndex)
     print("____________")
 
 def voerNieuwReceptIn():
     print("VOER NIEUW RECEPT IN: ")
-    nieuwReceptNaam = input("Voer naam recept in: ")
-    nieuwReceptOmschrijving = input("Voer omschrijving recept in: ")
-
-    nieuwRecept = Recept(nieuwReceptNaam, nieuwReceptOmschrijving)
-    voegIngredientToe(nieuwRecept)
-    voegStapOp(nieuwRecept)
-    voegReceptToe(nieuwRecept)
-    keuzeMenuOpties()
+    nieuwRecept = True
+    while nieuwRecept:
+        try:
+            nieuwReceptNaam = str(input("Voer naam recept in: "))
+            nieuwReceptOmschrijving = str(input("Voer omschrijving recept in: "))
+            if nieuwReceptNaam and nieuwReceptOmschrijving:
+                nieuwRecept = Recept(nieuwReceptNaam, nieuwReceptOmschrijving)
+                
+                voegIngredientToe(nieuwRecept)
+                voegStapOp(nieuwRecept)
+                voegReceptToe(nieuwRecept)
+                nieuwRecept = False
+                keuzeMenuOpties()
+            else:
+                print("Naam en omschrijving mogen niet leeg zijn!")
+        except ValueError:
+            print("Foutive invoer")
 
 def vraagAantalPersonenOp():
     while True:
@@ -208,7 +221,6 @@ def vraagPlantaardigAlternatiefOp():
                 print("Foutive invoer")
             else:
                 return wiltPlantaardigAlternatief
-                break
         except ValueError:
             print("Foutieve invoer")
 
@@ -238,12 +250,12 @@ def toonReceptenOverzicht():
     toonTotaalCalorieen(gekozenGerecht - 1, wiltPlantaardigAlternatief, aantalPersonen)
 
     vraagPDFBestand(gekozenGerecht)
-    vraagVerwijderenRecept(gekozenGerecht)
             
 def keuzeMenuOpties():
     keuzeNummer = 1
     keuzeMenu = ["Recept toevoegen", "Overzicht tonen", "Exit"]
     keuze = 0
+    keuzeIngevoerd = False
 
     for keuze in keuzeMenu:
         print(keuzeNummer, keuze)
@@ -252,6 +264,7 @@ def keuzeMenuOpties():
     while True:
         try:
             keuze = int(input("Kies een keuze uit het menu? "))
+            keuzeIngevoerd = True
             break
         except ValueError:
             print("Foutive invoer")
@@ -260,12 +273,13 @@ def keuzeMenuOpties():
         print("Foutieve invoer. Kies toevoegen, tonen of exit")
         keuze = int(input("Kies een keuze uit het menu? "))
 
-    if keuze == 1:
-        voerNieuwReceptIn()
-    elif keuze == 2:
-        toonReceptenOverzicht()
-    else:
-        print("Einde programma")
+    if keuzeIngevoerd:
+        if keuze == 1:
+            voerNieuwReceptIn()
+        elif keuze == 2:
+            toonReceptenOverzicht()
+        else:
+            print("Einde programma")
     
 def main():
     recept1 = Recept("Kip Kerrie", "Kip kerrie zonder pakjes en zakjes")
